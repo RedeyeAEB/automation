@@ -4,20 +4,20 @@ refreshwait = .25
 blurdegree = 15
 
 
-##Imports
-import pyautogui; import cv2; import numpy as np; import time
-
+##Imports & setup
+import pyautogui; import cv2; import numpy as np; import time; from pynput import keyboard
+pyautogui.FAILSAFE = True
 ##Information prints
-print( "Welcome! This script is designed to run on the primary display as fullscreen. \n\
+print( "Welcome! This script is designed to run on the primary display as fullscreen, with minimum FOV \n\
 Ensure you are directly above the water, crouch-walk distance from platform to hover.\n\
 Remember to look straight down, and have the rod extended prior to executing this code \n\
 A hopper underneath the water is ideal, though you must be out of clicking distance.\n\
 Finally, ensure you are completly surrounded by dark colors, as this code looks for the white of the bobber." )
 
 ##Actual code
-time.sleep( 5 )
+time.sleep( 5 )                                                                 #Wait a bit before starting
 i = 0
-while True:
+while True:                                                                     #Escape from game and move mouse up and left to stop program. Part of FAILSAFE
     pre = pyautogui.screenshot()                                                #Grab screencapture
     img = cv2.cvtColor( np.array( pre ), cv2.COLOR_BGR2GRAY )                   #Convert to OpenCV (numpy array)
     w, h = img.shape                                                            #Get dimensions (width & height)
@@ -31,4 +31,4 @@ while True:
         pyautogui.click( button = 'right' )                                     #Extend bobber
         time.sleep( 1.5 )
         print( i )                                                              #Times extended
-    time.sleep( refreshwait )
+    time.sleep( refreshwait )                                                   #Helpful for not killing the computer
